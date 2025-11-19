@@ -1,292 +1,321 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sueños de Viaje — Zipaquirá (Single Page)</title>
-<style>
-  :root{
-    --bg:#f4f7f6;
-    --accent1:#a8d5e2;
-    --accent2:#83c5be;
-    --green:#6a994e;
-    --salmon:#ff9a8d;
-    --salmon-hover:#ffb5a6;
-    --card:#ffffff;
-    --border:#e0b1cb;
-    --text:#333;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;font-family:Inter, "Poppins", Arial, sans-serif;
-    background:var(--bg);color:var(--text);
-    -webkit-font-smoothing:antialiased;
-  }
+  <!-- reCAPTCHA v2 -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  header{
-    background:linear-gradient(135deg,var(--accent2),var(--accent1));
-    color:white;padding:28px 16px;text-align:center;
-  }
-  header h1{margin:0;font-size:1.8rem}
-  header p{margin:.3rem 0 0;font-size:.95rem;opacity:.95}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sueños de Viaje — Zipaquirá (Single Page)</title>
 
-  .tabs{
-    display:flex;gap:8px;justify-content:center;padding:12px;background:#fff;
-    border-bottom:1px solid rgba(0,0,0,.04);
-    position:sticky;top:0;z-index:20;
-  }
-  .tab-btn{
-    padding:10px 18px;border-radius:999px;background:transparent;border:none;
-    cursor:pointer;font-weight:600;color:var(--text);transition:all .15s;
-  }
-  .tab-btn.active{background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:white}
-  .tab-btn:hover{transform:translateY(-2px)}
+  <style>
+:root{
+ --bg:#f4f7f6; --accent1:#a8d5e2; --accent2:#83c5be;
+ --green:#6a994e; --salmon:#ff9a8d; --salmon-hover:#ffb5a6;
+ --card:#ffffff; --border:#e0b1cb; --text:#333;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Inter, "Poppins", Arial, sans-serif;
+ background:var(--bg);color:var(--text);
+ -webkit-font-smoothing:antialiased;
+}
+header{
+ background:linear-gradient(135deg,var(--accent2),var(--accent1));
+ color:white;padding:28px 16px;text-align:center;
+}
+header h1{margin:0;font-size:1.8rem}
+header p{margin:.3rem 0 0;font-size:.95rem;opacity:.95}
 
-  main{max-width:1100px;margin:28px auto;padding:0 16px}
+.tabs{
+ display:flex;gap:8px;justify-content:center;padding:12px;background:#fff;
+ border-bottom:1px solid rgba(0,0,0,.04); position:sticky;top:0;z-index:20;
+}
+.tab-btn{
+ padding:10px 18px;border-radius:999px;background:transparent;border:none;
+ cursor:pointer;font-weight:600;color:var(--text);transition:.15s;
+}
+.tab-btn.active{
+ background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;
+}
+.tab-btn:hover{transform:translateY(-2px)}
 
-  section.page{display:none;animation:fade .22s ease}
-  section.page.active{display:block}
+main{max-width:1100px;margin:28px auto;padding:0 16px}
 
-  .hero{
-    display:grid;grid-template-columns:1fr;gap:18px;align-items:center;text-align:center;
-  }
-  .hero img{width:100%;max-width:820px;border-radius:12px;margin:0 auto;box-shadow:0 8px 30px rgba(0,0,0,.12)}
-  .hero .lead{font-size:1.05rem;color:rgba(0,0,0,.75);max-width:900px;margin:0 auto}
+section.page{display:none;animation:fade .22s ease}
+section.page.active{display:block}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
-  .card{
-    background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.08);
-  }
-  .card img{width:100%;height:160px;object-fit:cover;display:block}
-  .card .body{padding:12px}
-  .card h3{margin:6px 0;color:var(--accent1)}
-  .card p{margin:0;color:rgba(0,0,0,.7);font-size:.95rem}
+.hero{
+ display:grid;grid-template-columns:1fr;gap:18px;align-items:center;text-align:center;
+}
+.hero img{
+ width:100%;max-width:820px;border-radius:12px;margin:0 auto;
+ box-shadow:0 8px 30px rgba(0,0,0,.12)
+}
+.hero .lead{
+ font-size:1.05rem;color:rgba(0,0,0,.75);
+ max-width:900px;margin:0 auto
+}
 
-  .form-wrap{background:var(--card);padding:22px;border-radius:12px;max-width:700px;margin:18px auto;box-shadow:0 6px 18px rgba(0,0,0,.06)}
-  .form-row{display:flex;gap:12px}
-  .form-group{margin-bottom:14px}
-  label{display:block;margin-bottom:6px;font-weight:700;color:var(--green);font-size:.9rem}
-  input[type="text"], input[type="email"], input[type="number"], select, textarea{
-    width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:#fcfcfc;font-size:0.95rem;
-  }
-  textarea{min-height:110px;resize:vertical}
-  .doc-group{display:flex;gap:10px}
-  .doc-group > div{flex:1}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:18px;margin-top:18px
+}
 
-  .btn{
-    display:inline-block;padding:12px 16px;border-radius:10px;background:var(--salmon);color:white;font-weight:700;border:none;cursor:pointer;
-  }
-  .btn:hover{background:var(--salmon-hover);transform:translateY(-2px)}
+.card{
+ background:var(--card);border-radius:12px;overflow:hidden;
+ box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.card img{
+ width:100%;height:160px;object-fit:cover;display:block;
+}
+.card .body{padding:12px}
+.card h3{margin:6px 0;color:var(--accent1)}
+.card p{margin:0;color:rgba(0,0,0,.7);font-size:.95rem}
 
-  .notice{padding:10px;border-radius:8px;margin-top:10px}
-  .notice.success{background:#e6fbf6;border:1px solid #bfeee0;color:#05684a}
-  .notice.error{background:#ffecec;border:1px solid #f5b7b7;color:#7a1f1f}
+.form-wrap{
+ background:var(--card);padding:22px;border-radius:12px;
+ max-width:700px;margin:18px auto;box-shadow:0 6px 18px rgba(0,0,0,.06)
+}
 
-  footer{margin:40px 0 20px;text-align:center;color:rgba(0,0,0,.6);font-size:.9rem}
+.form-row{display:flex;gap:12px}
+.form-group{margin-bottom:14px}
 
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  @media(min-width:800px){ .hero{grid-template-columns:1fr 1fr;text-align:left;padding:8px 0} .hero .lead{margin:0} }
+label{display:block;margin-bottom:6px;font-weight:700;color:var(--green);font-size:.9rem}
 
+input, select, textarea{
+ width:100%;padding:10px 12px;border-radius:8px;
+ border:1px solid var(--border);background:#fcfcfc;font-size:.95rem;
+}
+textarea{min-height:110px;resize:vertical}
 
-  #translate-box{
-    background:#ffffff;
-    border-bottom:1px solid #ddd;
-    text-align:center;
-    padding:10px;
-    font-size:1rem;
-    font-weight:600;
-  }
+.doc-group{display:flex;gap:10px}
+.doc-group > div{flex:1}
 
+.btn{
+ display:inline-block;padding:12px 16px;border-radius:10px;
+ background:var(--salmon);color:white;font-weight:700;border:none;cursor:pointer;
+}
+.btn:hover{background:var(--salmon-hover);transform:translateY(-2px)}
 
-</style>
+.notice{padding:10px;border-radius:8px;margin-top:10px}
+.notice.success{background:#e6fbf6;border:1px solid #bfeee0;color:#05684a}
+.notice.error{background:#ffecec;border:1px solid #f5b7b7;color:#7a1f1f}
+
+footer{
+ margin:40px 0 20px;text-align:center;color:rgba(0,0,0,.6);font-size:.9rem;
+}
+
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+#translate-box{
+ background:#ffffff;border-bottom:1px solid #ddd;text-align:center;
+ padding:10px;font-size:1rem;font-weight:600;
+}
+  </style>
 </head>
 
 <body>
-
 
 <div id="translate-box">
   🌐 ¿Quieres traducir la página?
   <div id="google_translate_element" style="display:inline-block; margin-left:10px;"></div>
 </div>
 
-
 <header>
   <h1>🌴 Sueños de Viaje — Zipaquirá & Cundinamarca</h1>
   <p>Explora los mejores sitios — hoteles, restaurantes y experiencias inolvidables.</p>
 </header>
 
-<nav class="tabs" role="navigation" aria-label="Pestañas">
+<nav class="tabs">
   <button class="tab-btn active" data-target="inicio">Inicio</button>
   <button class="tab-btn" data-target="lugares">Lugares</button>
   <button class="tab-btn" data-target="registro">Registro</button>
 </nav>
 
 <main>
-  <section id="inicio" class="page active" aria-labelledby="tab-inicio">
-    <div class="hero">
-      <div>
-        <h2 style="color:var(--accent1);margin:0 0 .4rem">Tu próxima aventura comienza aquí</h2>
-        <p class="lead">
-          Zipaquirá y Cundinamarca ofrecen historia, paisajes y gastronomía que enamoran.
-          Navega la sección "Lugares" para ver recomendaciones y luego regístrate para recibir sugerencias personalizadas.
-        </p>
-        <p style="margin-top:12px"><strong>Consejo:</strong> regístrate si quieres recibir ofertas y guías locales.</p>
+
+<!-- INICIO -->
+<section id="inicio" class="page active">
+  <div class="hero">
+    <div>
+      <h2 style="color:var(--accent1);margin:0 0 .4rem">Tu próxima aventura comienza aquí</h2>
+      <p class="lead">
+        Zipaquirá y Cundinamarca ofrecen historia, paisajes y gastronomía que enamoran.
+        Navega la sección "Lugares" para ver recomendaciones y luego regístrate para recibir sugerencias personalizadas.
+      </p>
+      <p style="margin-top:12px"><strong>Consejo:</strong> regístrate si quieres recibir ofertas y guías locales.</p>
+    </div>
+
+    <div>
+      <img src="https://www.las2orillas.co/wp-content/uploads/2019/05/Tisquesusa.jpg" alt="Catedral de Sal">
+    </div>
+  </div>
+</section>
+
+<!-- LUGARES -->
+<section id="lugares" class="page">
+  <h2 style="text-align:center;color:var(--green)">Lugares recomendados</h2>
+
+  <div class="grid">
+    <article class="card">
+      <img src="https://sacyr.com/documents/121856245/167459210/IMG+0+-+Catedral+de+Sal.jpg/f41c23c9-9523-51a2-c76e-bede7c67cc22?t=1738596368242">
+      <div class="body">
+        <h3>Catedral de Sal</h3>
+        <p>Un lugar único, obra arquitectónica subterránea que atrae turistas de todo el mundo.</p>
       </div>
-      <div>
-        <img src="https://www.las2orillas.co/wp-content/uploads/2019/05/Tisquesusa.jpg" alt="Catedral de Sal">
+    </article>
+
+    <article class="card">
+      <img src="https://media.viajando.travel/p/cc2bbf0930b7b2829af0db2c23df9b95/adjuntos/236/imagenes/000/819/0000819897/1200x0/smart/fin-semana-zipaquira-2jpg.jpg">
+      <div class="body">
+        <h3>Centro Histórico</h3>
+        <p>Calles, plazas y restaurantes con sabor local — ideal para paseos y fotografía.</p>
       </div>
-    </div>
-  </section>
+    </article>
 
-  <section id="lugares" class="page" aria-labelledby="tab-lugares">
-    <h2 style="text-align:center;color:var(--green)">Lugares recomendados</h2>
-    <div class="grid" role="list">
-      <article class="card" role="listitem">
-        <img src="https://sacyr.com/documents/121856245/167459210/IMG+0+-+Catedral+de+Sal.jpg/f41c23c9-9523-51a2-c76e-bede7c67cc22?t=1738596368242" alt="Catedral de Sal">
-        <div class="body">
-          <h3>Catedral de Sal</h3>
-          <p>Un lugar único, obra arquitectónica subterránea que atrae turistas de todo el mundo.</p>
-        </div>
-      </article>
+    <article class="card">
+      <img src="https://extrategiamedios.com/wp-content/uploads/2023/11/197003755_1915125858660818_6868829818258162200_n.jpg">
+      <div class="body">
+        <h3>Sabana y naturaleza</h3>
+        <p>Senderos y miradores para quienes buscan naturaleza y aire libre cerca de la ciudad.</p>
+      </div>
+    </article>
+  </div>
+</section>
 
-      <article class="card" role="listitem">
-        <img src="https://media.viajando.travel/p/cc2bbf0930b7b2829af0db2c23df9b95/adjuntos/236/imagenes/000/819/0000819897/1200x0/smart/fin-semana-zipaquira-2jpg.jpg" alt="Centro Histórico de Zipaquirá">
-        <div class="body">
-          <h3>Centro Histórico</h3>
-          <p>Calles, plazas y restaurantes con sabor local — ideal para paseos y fotografía.</p>
-        </div>
-      </article>
+<!-- REGISTRO -->
+<section id="registro" class="page">
+  <div class="form-wrap">
+    <h2 style="text-align:center;color:var(--accent1)">Registro de Usuario</h2>
 
-      <article class="card" role="listitem">
-        <img src="https://extrategiamedios.com/wp-content/uploads/2023/11/197003755_1915125858660818_6868829818258162200_n.jpg" alt="Parque Natural">
-        <div class="body">
-          <h3>Sabana y naturaleza</h3>
-          <p>Senderos y miradores para quienes buscan naturaleza y aire libre cerca de la ciudad.</p>
-        </div>
-      </article>
-    </div>
-  </section>
+    <form id="registroForm" method="POST" action="guardar_registro.php">
 
-  <section id="registro" class="page" aria-labelledby="tab-registro">
-    <div class="form-wrap" role="form" aria-live="polite">
-      <h2 style="text-align:center;color:var(--accent1);margin-top:0">Registro de Usuario</h2>
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text" required placeholder="Tu nombre">
+      </div>
 
-      <form id="registroForm" method="POST" action="http://localhost/suenosdeviaje/guardar_registro.php" novalidate>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input id="apellido" name="apellido" type="text" required placeholder="Tu apellido">
+      </div>
 
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input id="nombre" name="nombre" type="text" required placeholder="Tu nombre">
-        </div>
-
-        <div class="form-group">
-          <label for="apellido">Apellido</label>
-          <input id="apellido" name="apellido" type="text" required placeholder="Tu apellido">
-        </div>
-
-        <div class="form-group">
-          <label>Documento</label>
-          <div class="doc-group">
-            <div>
-              <select id="tipo_documento" name="tipo_documento" required>
-                <option value="" disabled selected>Tipo</option>
-                <option value="CC">CC (Cédula de Ciudadanía)</option>
-                <option value="TI">TI (Tarjeta de Identidad)</option>
-              </select>
-            </div>
-            <div>
-              <input id="numero_documento" name="numero_documento" type="text" required placeholder="Número de documento">
-            </div>
+      <div class="form-group">
+        <label>Documento</label>
+        <div class="doc-group">
+          <div>
+            <select id="tipo_documento" name="tipo_documento" required>
+              <option value="" disabled selected>Tipo</option>
+              <option value="CC">CC (Cédula de Ciudadanía)</option>
+              <option value="TI">TI (Tarjeta de Identidad)</option>
+            </select>
+          </div>
+          <div>
+            <input id="numero_documento" name="numero_documento" type="text" required placeholder="Número de documento">
           </div>
         </div>
+      </div>
 
-        <div class="form-row" style="margin-bottom:14px">
-          <div style="flex:1">
-            <label for="edad">Edad</label>
-            <input id="edad" name="edad" type="number" min="1" max="120" required placeholder="Tu edad">
-          </div>
-          <div style="flex:1">
-            <label for="email">Correo Electrónico</label>
-            <input id="email" name="email" type="email" required placeholder="ejemplo@correo.com">
-          </div>
+      <div class="form-row">
+        <div style="flex:1">
+          <label for="edad">Edad</label>
+          <input id="edad" name="edad" type="number" min="1" max="120" required placeholder="Tu edad">
         </div>
 
-        <div class="form-group">
-          <label for="sugerencias">Dudas</label>
-          <textarea id="sugerencias" name="sugerencias" placeholder="¿Qué esperas del viaje?"></textarea>
+        <div style="flex:1">
+          <label for="email">Correo Electrónico</label>
+          <input id="email" name="email" type="email" required placeholder="ejemplo@correo.com">
         </div>
+      </div>
 
-        <div style="display:flex;gap:12px;align-items:center">
-          <button type="submit" class="btn">Registrarme y Soñar</button>
-          <div id="formStatus" style="flex:1"></div>
-        </div>
-      </form>
-    </div>
-  </section>
+      <div class="form-group">
+        <label for="dudas">Dudas</label>
+        <textarea id="dudas" name="dudas" placeholder="¿Qué esperas del viaje?"></textarea>
+      </div>
+
+      <!-- reCAPTCHA -->
+      <div class="form-group" style="margin-top:15px;">
+        <div class="g-recaptcha" data-sitekey="6LddYhEsAAAAAP8Khvxkvg4Rkx-PP-XBrgQ0fL6b"></div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
+        <button type="submit" class="btn">Registrarme y Soñar</button>
+        <div id="formStatus" style="flex:1"></div>
+      </div>
+
+    </form>
+  </div>
+</section>
+
 </main>
 
 <footer>© 2025 Sueños de Viaje — Zipaquirá & Cundinamarca</footer>
 
 <script>
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      const target = btn.dataset.target;
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      document.getElementById(target).classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
+// PESTAÑAS
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+ btn.addEventListener('click', ()=>{
+   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+
+   const target = btn.dataset.target;
+   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+   document.getElementById(target).classList.add('active');
+
+   window.scrollTo({top:0,behavior:'smooth'});
+ });
+});
+
+// FORM AJAX
+const form = document.getElementById('registroForm');
+const statusDiv = document.getElementById('formStatus');
+
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  statusDiv.innerHTML = '';
+
+  const data = new FormData(form);
+
+  try {
+    const resp = await fetch(form.action, {
+      method: 'POST',
+      body: data
     });
-  });
 
-  const form = document.getElementById('registroForm');
-  const statusDiv = document.getElementById('formStatus');
+    const json = await resp.json();
 
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    statusDiv.innerHTML = ''; 
-    if(!form.checkValidity()){
-      statusDiv.innerHTML = '<div class="notice error">Por favor completa los campos requeridos.</div>';
-      return;
+    if(json.success){
+      statusDiv.innerHTML =
+        '<div class="notice success">✅ Registro guardado correctamente.</div>';
+      form.reset();
+      grecaptcha.reset();
+    } else {
+      statusDiv.innerHTML =
+        '<div class="notice error">❌ Error: '+(json.message||'No se pudo guardar')+'</div>';
     }
 
-    const data = new FormData(form);
-
-    try {
-      const resp = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-      });
-      const json = await resp.json();
-
-      if(json.success){
-        statusDiv.innerHTML = '<div class="notice success">✅ Registro guardado correctamente.</div>';
-        form.reset();
-      } else {
-        statusDiv.innerHTML = '<div class="notice error">❌ Error: '+ (json.message||'No se pudo guardar') +'</div>';
-      }
-    } catch (err){
-      console.error(err);
-      statusDiv.innerHTML = '<div class="notice error">❌ Error de conexión con el servidor.</div>';
-    }
-  });
+  } catch(err){
+    statusDiv.innerHTML =
+      '<div class="notice error">❌ Error de conexión con el servidor.</div>';
+  }
+});
 </script>
 
-
-<script type="text/javascript">
+<!-- Google Translate -->
+<script>
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
     pageLanguage: 'es',
     includedLanguages: 'es,en,fr,it,de,pt',
-    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-    autoDisplay: false
+    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
   }, 'google_translate_element');
 }
 </script>
+
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
-
-</script>
 </body>
 </html>
+

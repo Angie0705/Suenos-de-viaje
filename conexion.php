@@ -1,7 +1,7 @@
 <?php
 $username = "USUARIO";   
 $password = "Usuario12345";       
-$connection_string = "localhost/XEPDB1";
+$connection_string = "localhost/XE";
 
 $conn = oci_connect($username, $password, $connection_string);
 
